@@ -1,10 +1,14 @@
 package com.github.mstavares.cm.fichas
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 
-class CalculatorViewModel : ViewModel() {
+class CalculatorViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val model = Calculator
+    private val model = Calculator(
+        CalculatorDatabase.getInstance(application).operationDao()
+    )
 
     fun getDisplayValue(): String {
         return model.expression
@@ -26,7 +30,7 @@ class CalculatorViewModel : ViewModel() {
         model.getLastOperation(onFinished)
     }
 
-    fun onGetHistory(onFinished: (List<Operation>) -> Unit) {
+    fun onGetHistory(onFinished: (List<OperationUi>) -> Unit) {
         model.getHistory(onFinished)
     }
 

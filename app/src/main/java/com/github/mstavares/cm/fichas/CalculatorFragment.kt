@@ -98,7 +98,7 @@ class CalculatorFragment : Fragment() {
         return false
     }
 
-    private fun updateHistory(operations: List<Operation>) {
+    private fun updateHistory(operations: List<OperationUi>) {
         val history = operations.map { OperationUi(it.uuid, it.expression, it.result, it.timestamp) }
         CoroutineScope(Dispatchers.Main).launch {
             adapter.updateItems(history)
