@@ -6,12 +6,17 @@ import androidx.lifecycle.ViewModel
 
 class CalculatorViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val model = Calculator(
+    /*private val model = CalculatorRoom(
         CalculatorDatabase.getInstance(application).operationDao()
     )
 
+     */
+
+    private val model = CalculatorRepository.getInstance()
+    //private val model = CalculatorRetrofit(RetrofitBuilder.getInstance("https://cm-calculadora.herokuapp.com/api"))
+
     fun getDisplayValue(): String {
-        return model.expression
+        return model.getExpression()
     }
 
     fun onClickSymbol(symbol: String): String {

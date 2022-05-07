@@ -42,7 +42,7 @@ class HistoryFragment : Fragment() {
         super.onStart()
         binding.rvHistory.layoutManager = LinearLayoutManager(context)
         binding.rvHistory.adapter = adapter
-        getAllOperationsWs { operations-> Log.i(TAG, operations.toString())}
+        //getAllOperationsWs { operations-> Log.i(TAG, operations.toString())}
         viewModel.onGetHistory { updateHistory(it) }
     }
 
@@ -77,7 +77,7 @@ class HistoryFragment : Fragment() {
     }
 
     private fun getAllOperationsWs(callback: (List<OperationUi>) -> Unit) {
-        data class GetAllOperationsResponse(val uuid: String, val expression: String, val result: Double, val timstamp: Long)
+        data class GetAllOperationsResponse(val uuid: String, val expression: String, val result: Double, val timestamp: Long)
 
         CoroutineScope(Dispatchers.IO).launch {
             val request: Request = Request.Builder()
@@ -93,7 +93,7 @@ class HistoryFragment : Fragment() {
 
                 callback(
                     responseObj.map {
-                        OperationUi(it.uuid,it.expression,it.result,it.timstamp)
+                        OperationUi(it.uuid,it.expression,it.result,it.timestamp)
                     })
             }
         }
